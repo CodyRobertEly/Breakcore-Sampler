@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JS Breakcore Sampler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="script.js"></script>
+</head>
+<body>
+        <div class="keys">
+                <div data-key="65" class="key">
+                  <kbd>A</kbd>
+                  <span class="sound">boomboom</span>
+                </div>
+                <div data-key="83" class="key">
+                  <kbd>S</kbd>
+                  <span class="sound">GAT</span>
+                </div>
+                <div data-key="68" class="key">
+                  <kbd>D</kbd>
+                  <span class="sound">chikachika</span>
+                </div>
+                <div data-key="70" class="key">
+                  <kbd>F</kbd>
+                  <span class="sound">boom</span>
+                </div>
+                <div data-key="71" class="key">
+                  <kbd>G</kbd>
+                  <span class="sound">GAT</span>
+                </div>
+                <div data-key="72" class="key">
+                  <kbd>H</kbd>
+                  <span class="sound">DOOF</span>
+                </div>
+                <div data-key="74" class="key">
+                  <kbd>J</kbd>
+                  <span class="sound">snarerush</span>
+                </div>
+                <div data-key="75" class="key">
+                  <kbd>K</kbd>
+                  <span class="sound">diode</span>
+                </div>
+                <div data-key="76" class="key">
+                  <kbd>L</kbd>
+                  <span class="sound">unobass</span>
+                </div>
+              </div>
+            
+              <audio data-key="65" src="sounds/1.5.wav"></audio>
+              <audio data-key="83" src="sounds/2.5.wav"></audio>
+              <audio data-key="68" src="sounds/3.5.wav"></audio>
+              <audio data-key="70" src="sounds/4.5.wav"></audio>
+              <audio data-key="71" src="sounds/5.5.wav"></audio>
+              <audio data-key="72" src="sounds/Gabber Kick.wav"></audio>
+              <audio data-key="74" src="sounds/pitched amen snare rush.wav"></audio>
+              <audio data-key="75" src="sounds/Diode synth phrase.wav"></audio>
+              <audio data-key="76" src="sounds/Unobass synth phrase.wav"></audio>
+</body>
+<script>
+        function removeTransition(e) {
+          if(e.propertyName !== 'transform') return;
+          e.target.classList.remove('playing');
+        }
+        function playSound(e) {
+          const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+          const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+          if (!audio) return;
+          key.classList.add('playing');
+          audio.currentTime = 0;
+          audio.play();
+        }
+        const keys = Array.from(document.querySelectorAll('.key'));
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        window.addEventListener('keydown', playSound);
+      </script>
+</html>
